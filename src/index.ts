@@ -1,16 +1,18 @@
-import express, { Request, Response, Application } from 'express';
+import express, { Application } from 'express';
 import session from 'express-session';
 import cors from 'cors';
 import morgan from 'morgan';
-import config from './config';
-import User from './models/User';
-import connectDatabase from './Database';
-import authRouter from './routes/auth.router';
+import config from './config/index.js';
+import connectDatabase from './Database/index.js';
+import authRouter from './routes/auth.router.js';
+import movieRouter from './routes/movies.router.js';
+import notFoundMiddleware from './middlewares/not-found.middleware.js';
+import errorHandlerMiddleware from './middlewares/error-handler.middleware.js';
 
 const app: Application = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cors('*'));
+app.use(cors({ origin: '*' }));
 app.use(morgan('dev'));
 app.use(
   session({
@@ -22,21 +24,21 @@ app.use(
 );
 
 app.use('/api/auth', authRouter);
+app.use('/api/movies', movieRouter);
 
-connectDatabase();
+app.use(notFoundMiddleware);
+app.use(errorHandlerMiddleware);
 
 const PORT: number = config.port as unknown as number;
 
-app.get('/', async (req: Request, res: Response) => {
-  const username = req.query.username as string;
-  console.log(username);
-  const user = await User.findOne({ Username: username });
-  if (!user) {
-    return res.status(404).json({ error: 'User Not Found' });
+const start = async () => {
+  try {
+    connectDatabase();
+    app.listen(PORT, () => console.log(`Server running`));
+  } catch (error) {
+    console.log('Error while starting the server');
+    console.log(error);
   }
-  res.status(200).json({ user: user });
-});
+};
 
-app.listen(PORT, () => {
-  console.log('The application is listening on port 3000!');
-});
+start();

@@ -1,7 +1,7 @@
 import { Response, NextFunction, Request } from 'express';
 import jwt from 'jsonwebtoken';
-import config from '../config';
-import User from '../@types/user_type';
+import config from '../config/index.js';
+import User from '../@types/user_type.js';
 
 const authenticationMiddleware = (
   req: Request,
@@ -19,3 +19,5 @@ const authenticationMiddleware = (
     res.status(400).send('Invalid Token');
   }
 };
+
+export default authenticationMiddleware;

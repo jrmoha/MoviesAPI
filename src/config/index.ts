@@ -8,6 +8,8 @@ const {
   DB_NAME,
   JWT_SECRET,
   SESSION_SECRET,
+  API_READ_ACCESS_TOKEN,
+  API_URL
 } = process.env;
 
 export default {
@@ -19,4 +21,8 @@ export default {
   },
   jwtSecret: JWT_SECRET,
   sessionSecret: SESSION_SECRET,
+  api: {
+    readAccessToken: API_READ_ACCESS_TOKEN,
+    url: API_URL,
+  },
 };
