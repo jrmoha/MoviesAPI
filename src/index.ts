@@ -6,6 +6,7 @@ import config from './config/index.js';
 import connectDatabase from './Database/index.js';
 import authRouter from './routes/auth.router.js';
 import movieRouter from './routes/movies.router.js';
+import userRouter from './routes/user.router.js';
 import notFoundMiddleware from './middlewares/not-found.middleware.js';
 import errorHandlerMiddleware from './middlewares/error-handler.middleware.js';
 
@@ -19,13 +20,13 @@ app.use(
     secret: config.sessionSecret!,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true },
+    cookie: { secure: true, maxAge: 60 * 1000 * 60 * 24 },
   }),
 );
 
 app.use('/api/auth', authRouter);
 app.use('/api/movies', movieRouter);
-
+app.use('/api/users', userRouter);
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 

@@ -9,7 +9,8 @@ const {
   JWT_SECRET,
   SESSION_SECRET,
   API_READ_ACCESS_TOKEN,
-  API_URL
+  API_URL,
+  API_IMAGE_URL,
 } = process.env;
 
 export default {
@@ -24,5 +25,13 @@ export default {
   api: {
     readAccessToken: API_READ_ACCESS_TOKEN,
     url: API_URL,
+    imageUrl: API_IMAGE_URL,
+    options: {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${exports.api.readAccessToken}`,
+      },
+    },
   },
 };

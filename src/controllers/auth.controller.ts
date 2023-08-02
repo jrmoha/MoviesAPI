@@ -8,8 +8,10 @@ import { asyncWrapper } from '../middlewares/async.middleware.js';
 
 export const signup = asyncWrapper(async (req: Request, res: Response) => {
   const { username, password, age, email } = req.body;
-  const userExists = await User.exists({ Username: username, Email: email });
-  if (userExists) {
+  const userExists = await User.find({$or: [{Username: username}, {Email: email}]});
+  console.log(userExists);
+  
+  if (userExists.length > 0) {
     return res.json({ Errors: 'User Already Exists' });
   }
   const newUser = new User({
@@ -23,7 +25,7 @@ export const signup = asyncWrapper(async (req: Request, res: Response) => {
   await newUser.save();
   const token = jwt.sign(
     {
-      id: newUser._id,
+      _id: newUser._id,
       username: newUser.Username,
       email: newUser.Email,
       age: newUser.Age,
@@ -46,7 +48,7 @@ export const login = asyncWrapper(async (req: Request, res: Response) => {
   }
   const token = jwt.sign(
     {
-      id: user._id,
+      _id: user._id,
       username: user.Username,
       email: user.Email,
       age: user.Age,

@@ -8,3 +8,10 @@ export const getNowPlayingMovies = asyncWrapper(
     res.status(200).json({ success: true, data: data });
   },
 );
+
+export const getMovieById = asyncWrapper(
+  async (req: Request, res: Response) => {
+    const data = await Movie.getMovieById(Number(req.params.id));
+    res.status(200).json({ success: true, data: data });
+  },
+);

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import IMovie from './Movie.js';
 
 const userSchema = new mongoose.Schema({
   Username: {
@@ -16,7 +17,7 @@ const userSchema = new mongoose.Schema({
     required: [true, 'Email Is Required'],
     unique: true,
   },
-  FavoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Movie' }],
+  FavoriteMovies: [IMovie],
 });
 
 const User = mongoose.model('User', userSchema);
