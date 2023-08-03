@@ -24,9 +24,9 @@ app.use(
   }),
 );
 
-app.use('/api/auth', authRouter);
-app.use('/api/movies', movieRouter);
-app.use('/api/users', userRouter);
+app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/movies', movieRouter);
+app.use('/api/v1/users', userRouter);
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
