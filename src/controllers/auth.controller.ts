@@ -19,7 +19,6 @@ export const signup = asyncWrapper(async (req: Request, res: Response) => {
     Password: bcryptjs.hashSync(password, 10),
     Age: age,
     Email: email,
-    FavoriteMovies: [],
   });
   console.log(newUser);
   await newUser.save();

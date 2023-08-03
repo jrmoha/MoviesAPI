@@ -1,4 +1,4 @@
-import { IMovie } from "./movie.interface";
+import IMovie from './movie.interface.js';
 
 type User = {
   _id?: string;

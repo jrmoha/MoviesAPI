@@ -14,6 +14,7 @@ const authenticationMiddleware = (
   try {
     const verified = jwt.verify(token, config.jwtSecret!);
     req.user = verified as User;
+    console.log("All good in authenticationMiddleware");
     next();
   } catch (err) {
     res.status(400).send('Invalid Token');

@@ -10,4 +10,5 @@ export default interface IMovie {
   genres?: string[];
   status?: string;
   runtime?: number;
+  users_rating?: number;
 }

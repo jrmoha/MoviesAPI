@@ -22,6 +22,7 @@ class Movie {
     });
     return data.results as IMovie[];
   }
+
   async getMovieById(id: number): Promise<IMovie> {
     const API_URL = `${config.api.url}/${id}?language=en-US`;
     const response = await fetch(API_URL, config.api.options);

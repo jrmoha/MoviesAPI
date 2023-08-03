@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import IMovie from './Movie.js';
+import IMovie from '../@types/movie.interface.js';
 
 const userSchema = new mongoose.Schema({
   Username: {
@@ -17,7 +17,22 @@ const userSchema = new mongoose.Schema({
     required: [true, 'Email Is Required'],
     unique: true,
   },
-  FavoriteMovies: [IMovie],
+  FavoriteMovies: {
+    type: [Object as any as IMovie],
+    default: [],
+  },
+  WatchedMovies: {
+    type: [Object as any as IMovie],
+    default: [],
+  },
+  WatchLaterMovies: {
+    type: [Object as any as IMovie],
+    default: [],
+  },
+  CreatedAt: {
+    type: Date,
+    default: Date.now(),
+  },
 });
 
 const User = mongoose.model('User', userSchema);

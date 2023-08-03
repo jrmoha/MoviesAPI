@@ -30,7 +30,7 @@ export default {
       method: 'GET',
       headers: {
         accept: 'application/json',
-        Authorization: `Bearer ${exports.api.readAccessToken}`,
+        Authorization: `Bearer ${API_READ_ACCESS_TOKEN}`,
       },
     },
   },
