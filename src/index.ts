@@ -14,7 +14,7 @@ const app: Application = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors({ origin: '*' }));
-app.use(morgan('dev'));
+app.use(morgan('tiny'));
 app.use(
   session({
     secret: config.sessionSecret!,
@@ -23,7 +23,11 @@ app.use(
     cookie: { secure: true, maxAge: 60 * 1000 * 60 * 24 },
   }),
 );
-
+app.get('/', (req, res) => {
+  //know which browser is making the request
+  console.log(req.headers['user-agent']);
+  res.send('Hello World');
+});
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/movies', movieRouter);
 app.use('/api/v1/users', userRouter);
@@ -32,9 +36,11 @@ app.use(errorHandlerMiddleware);
 
 const PORT: number = config.port as unknown as number;
 
+
+
 const start = async () => {
   try {
-    connectDatabase();
+    await connectDatabase();
     app.listen(PORT, () => console.log(`Server running`));
   } catch (error) {
     console.log('Error while starting the server');

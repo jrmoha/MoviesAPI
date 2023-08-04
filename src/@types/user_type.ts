@@ -6,7 +6,9 @@ type User = {
   Password?: string;
   Age: number;
   Email: string;
-  FavoriteMovies: IMovie[];
+  FavoriteMovies?: IMovie[];
+  WatchedMovies?: IMovie[];
+  WatchLaterMovies?: IMovie[];
 };
 
 export default User;
