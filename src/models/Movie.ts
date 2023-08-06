@@ -8,7 +8,7 @@ class Movie {
     const data: any = await response.json();
     data.results = data.results.map((movie: any) => {
       return {
-        id: movie.id,
+        id: movie.id as string,
         title: movie.title,
         original_title: movie.original_title,
         overview: movie.overview,
