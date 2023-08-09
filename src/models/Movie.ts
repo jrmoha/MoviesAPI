@@ -2,8 +2,8 @@ import fetch from 'node-fetch';
 import config from '../config/index.js';
 import IMovie from '../@types/movie.interface.js';
 class Movie {
-  async getNowPlayingMovies(page = 1): Promise<IMovie[]> {
-    const API_URL = `${config.api.url}/now_playing?&language=en-US&page=${page}`;
+  async getMovies(type: string, page = 1): Promise<IMovie[]> {
+    const API_URL = `${config.api.url}/${type}?&language=en-US&page=${page}`;
     const response = await fetch(API_URL, config.api.options);
     const data: any = await response.json();
     data.results = data.results.map((movie: any) => {
